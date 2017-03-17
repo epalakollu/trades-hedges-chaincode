@@ -29,7 +29,7 @@ type TradesHedgesData struct {
     TradeType       string `json:"tradeType"`
     CurrencyFrom     string `json:"currencyFrom"`
     CurrencyTo    string `json:"currencyTo"`
-    TradeDirection       string `json:"tradeType"`
+    TradeDirection       string `json:"tradeDirection"`
     Rate     string `json:"rate"`
     TotalTrade    string `json:"totalTrade"`    
     TradeDate     string `json:"tradeDate"`
