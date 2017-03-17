@@ -139,6 +139,9 @@ func (t *TradesHedgesData) read(stub shim.ChaincodeStubInterface, args []string)
 	key = args[0]
 	valAsbytes, err := stub.GetState(key)
 
+
+	fmt.Println("Printing retrieved response: " + valAsbytes)
+
 	var tradeshedgesInfo TradesHedgesData
 
 	
