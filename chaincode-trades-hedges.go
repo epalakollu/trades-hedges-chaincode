@@ -140,7 +140,7 @@ func (t *TradesHedgesData) read(stub shim.ChaincodeStubInterface, args []string)
 	valAsbytes, err := stub.GetState(key)
 
 
-	fmt.Println("Printing retrieved response: " + valAsbytes)
+	fmt.Println("Printing retrieved response: " + string(valAsbytes))
 
 	var tradeshedgesInfo TradesHedgesData
 
