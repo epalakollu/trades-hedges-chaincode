@@ -72,18 +72,35 @@ func (t *TradesHedgesData) Invoke(stub shim.ChaincodeStubInterface, function str
 	return nil, errors.New("Received unknown function invocation: " + function)
 }
 
-// Query is our entry point for queries
+// Query callback representing the query of a chaincode
 func (t *TradesHedgesData) Query(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error) {
-	fmt.Println("query is running " + function)
 
-	// Handle different functions
-	if function == "read" { //read a variable
-		return t.read(stub, args)
+	if function != "read" { //read a variable
+		fmt.Println("query did not find func: " + function)
 	}
-	fmt.Println("query did not find func: " + function)
+	
+	var Trades string
+	var err error
 
-	return nil, errors.New("Received unknown function query: " + function)
+	Trades = args[1]
+
+	// Get the state from the ledger
+	Avalbytes, err := stub.GetState(Trades)
+	if err != nil {
+		jsonResp := "{\"Error\":\"Failed to get state for " + Trades + "\"}"
+		return nil, errors.New(jsonResp)
+	}
+
+	if Avalbytes == nil {
+		jsonResp := "{\"Error\":\"Nil amount for " + Trades + "\"}"
+		return nil, errors.New(jsonResp)
+	}
+
+	jsonResp := "{\"Trades\":\"" + Trades + "\",\"Info\":\"" + string(Avalbytes) + "\"}"
+	fmt.Printf("Query Response:%s\n", jsonResp)
+	return Avalbytes,nil
 }
+
 
 // write - invoke function to write key/value pair
 func (t *TradesHedgesData) write(stub shim.ChaincodeStubInterface, args []string) ([]byte, error) {
