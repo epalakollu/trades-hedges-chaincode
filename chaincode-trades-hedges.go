@@ -82,7 +82,9 @@ func (t *TradesHedgesData) Query(stub shim.ChaincodeStubInterface, function stri
 	var Trades string
 	var err error
 
-	Trades = args[1]
+	Trades = args[0]
+
+	fmt.Printf("Printing query arguments:%s\n", args[0])
 
 	// Get the state from the ledger
 	Avalbytes, err := stub.GetState(Trades)
