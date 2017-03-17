@@ -139,14 +139,21 @@ func (t *TradesHedgesData) read(stub shim.ChaincodeStubInterface, args []string)
 
 	var tradeshedgesInfo TradesHedgesData
 
-	//Converting the string to object
-	err = json.Unmarshal(valAsbytes, tradeshedgesInfo)
-
 	
 	if err != nil {
-		jsonResp = "{\"Error\":\"Failed to get state for " + key + "\"}"
+		jsonResp = "{\"Error\":\"Step 1: Failed to get state for " + key + "\"}"
 		return nil, errors.New(jsonResp)
 	}
+
+
+	//Converting the string to object
+	err = json.Unmarshal(valAsbytes, &tradeshedgesInfo)
+
+	if err != nil {
+		jsonResp = "{\"Error\":\"Step 2: Failed to Unmarshal " + key + "\"}"
+		return nil, errors.New(jsonResp)
+	}
+
 
 	fmt.Println(tradeshedgesInfo.TradeID)
 
