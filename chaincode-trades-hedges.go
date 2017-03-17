@@ -104,6 +104,8 @@ func (t *TradesHedgesData) write(stub shim.ChaincodeStubInterface, args []string
 
 	var tradeshedgesInfo TradesHedgesData
 
+	fmt.Println("Data being added to block for " + key + " Value: " + value)
+
 	//Converting the string to object
 	merr = json.Unmarshal([]byte(value),tradeshedgesInfo)
 
