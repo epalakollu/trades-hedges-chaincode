@@ -107,10 +107,10 @@ func (t *TradesHedgesData) write(stub shim.ChaincodeStubInterface, args []string
 	fmt.Println("Data being added to block for " + key + " Value: " + value)
 
 	//Converting the string to object
-	merr = json.Unmarshal([]byte(value),tradeshedgesInfo)
+	merr = json.Unmarshal([]byte(value),&tradeshedgesInfo)
 
 	//converting object to bytes for storing it into ledger
-	bytes, merr = json.Marshal(tradeshedgesInfo)
+	bytes, merr = json.Marshal(&tradeshedgesInfo)
 
 	if merr != nil {
 		fmt.Println("Couldn't marshan tradeshedgesInfo object")
